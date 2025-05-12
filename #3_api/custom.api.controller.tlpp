@@ -1,0 +1,93 @@
+#include "TOTVS.ch"
+#include 'tlpp-core.th'
+
+namespace custom.api
+
+/*/{Protheus.doc} apiController
+API genérica para consulta de dados no Protheus usando TLPP
+@type class
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+/*/
+Class apiController
+	Data jResponse  as Json
+	Data oService   as Object
+
+	Public Method new() as Object
+
+	@Get("/api/tscdevs/v1/:table")
+	Public Method getTable() as Logical 
+	
+EndClass
+
+/*/{Protheus.doc} new
+Construtor da classe apiService. Inicializa uma nova instância da classe.
+@type method
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+@return object, return_description
+/*/
+Method new() as Object Class apiController 
+	
+	//Sem prepareIn
+	If Type("cEmpAnt") == "U"
+		RpcSetEnv( "01","01")
+	EndIf
+
+	::oService  := apiService():new()
+	::jResponse := JsonObject():new()
+Return self
+
+/*/{Protheus.doc} getTable
+Consulta dados de uma tabela específica
+@type method
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+@return logical, return_description
+/*/
+Method getTable() as Logical Class apiController
+	Local cFields   as Character
+	Local cSort     as Character
+	Local cFilter   as Character
+	Local nPage     as Numeric
+	Local nPageSize as Numeric 
+
+	cFields   := getQueryParam( 'fields' )
+	cSort     := getQueryParam( 'sort' )
+	cFilter   := getQueryParam( 'filter' )
+	nPage     := getQueryParam( 'page' )
+	nPageSize := getQueryParam( 'pagesize' )
+	cTable    := cValToChar(oRest:getPathParamsRequest()[ 'table' ]) 
+
+    oRest:setKeyHeaderResponse('Content-Type','application/json; charset=utf-8')
+	oRest:setResponse(::oService:getTable(val(nPage), val(nPageSize), cFilter, cFields, cSort, cTable))
+Return .T.
+
+/*/{Protheus.doc} getQueryParam
+Função para obter o valor do parâmetro da query string.
+Ações:
+Obtém o valor do parâmetro da query string.
+Se o valor for 'null', define valores padrão para 'page' e 'pagesize', ou uma string vazia para outros parâmetros.
+
+@type user function
+@author user
+@since 11/05/2025
+/*/ 
+Static Function getQueryParam(cName as Character) as Character
+    
+    Local cParamText as Character
+
+    cParamText := oRest:getQueryRequest():GetJsonText(cName)
+    If cParamText == 'null'
+        If cName == 'page'
+            cParamText := '1'
+        ElseIf cName == 'pagesize'
+            cParamText := '10'
+        Else
+            cParamText := ''
+        EndIf
+    EndIf
+Return cParamText

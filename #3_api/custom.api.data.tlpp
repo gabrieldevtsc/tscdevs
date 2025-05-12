@@ -1,0 +1,236 @@
+#include "TOTVS.ch"
+#include "tlpp-core.th"
+
+namespace custom.api
+
+/*/{Protheus.doc} apiData
+description
+@type class
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+/*/
+Class apiData From FWAdapterBaseV2
+
+    Public Data oHashFields as Object
+
+    Public  Method new() as Object
+    Public  Method getTable()
+    
+EndClass
+
+/*/{Protheus.doc} new
+Construtor da classe apiData. Inicializa uma nova instância da classe.
+@type method
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+@param cVerb, character, param_description
+@return object, return_description
+/*/
+Method new(cVerb as Character) as Object Class apiData
+    _Super:new(cVerb, .T.)
+Return Self
+
+/*/{Protheus.doc} getTable
+Método para obter dados de uma tabela específica.
+@type method
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+@param nPage, numeric, param_description
+@param nPageSize, numeric, param_description
+@param cFilter, character, param_description
+@param cFields, character, param_description
+@param cSort, character, param_description
+@param cTable, character, param_description
+/*/ 
+Method getTable(nPage as Numeric, nPageSize as Numeric, cFilter as Character,;
+    cFields as Character, cSort as Character, cTable as Character) Class apiData
+
+    Local aArea as Array
+    Local aFilter as Array
+    Local cWhere as Character
+    Local cQuery as Character
+
+    aArea := FwGetArea()
+    aFilter := {}
+    cWhere  := ""
+    cQuery  := "SELECT #QueryFields# FROM " + RetSqlName(cTable) + " " + cTable + " WHERE #QueryWhere#"
+  
+    If !cTable $ aliasDic()
+        cWhere := " D_E_L_E_T_ = ''"
+    EndIf
+
+    AddMapFields(self,cTable)
+
+    If !Empty(cFilter)
+        aAdd(aFilter, {"FILTER", cFilter})
+        ::SetUrlFilter(aFilter)
+    EndIf
+
+    If !Empty(cFields)
+        ::SetFields(cFields)
+    EndIf
+
+    If !Empty(cSort)
+        ::SetOrderQuery(cSort)
+    EndIf
+
+    ::SetPage(nPage)
+    ::SetPageSize(nPageSize)
+    ::SetQuery(cQuery)
+    ::SetWhere(cWhere)
+
+    If !cTable $ aliasDic()
+        ::SetOrder("R_E_C_N_O_")
+    EndIf 
+
+    If ::Execute()
+        ::FillGetResponse()
+    EndIf
+
+    RestArea( aArea )
+	aSize( aArea, 0 )
+Return Nil
+
+/*/{Protheus.doc} AddMapFields
+Mapeia os campos da tabela para as propriedades da classe, determinando quais campos serão apresentados.
+@type function
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+@param oSelf, object, param_description
+@param cTable, character, param_description
+/*/
+Static Function AddMapFields(oSelf as Object, cTable as Character)
+	Local nX
+    Local aCampos 
+    
+    If cTable $ aliasDic()
+        aCampos := aliasDicStruct(cTable)
+    Else 
+        dbSelectArea(cTable)
+        aCampos := FWSX3Util():GetListFieldsStruct(cTable,.F.)
+    EndIf 
+
+    For nX := 1 To Len(aCampos)
+        cCampo  := UPPER((aCampos[nX][1]))
+
+		If &(cTable)->(FieldPos(cCampo)) > 0; 
+            .and. X3Uso(GetSX3Cache(cCampo, "X3_USADO")); 
+            .or. cTable $ aliasDic()
+
+			oSelf:AddMapFields(cCampo, cCampo, .T., .F., { cCampo, aCampos[nX][2], aCampos[nX][3], aCampos[nX][4] } )
+		Endif
+    Next
+Return Nil
+
+/*/{Protheus.doc} aliasDic
+Define tabelas de dicionário
+@type function
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+/*/
+Static Function aliasDic()
+Return 'SX1,SX2,SX3,SX4,SX5,SX6,SX7,SX9,SXA,SXB,SXG,SIX'
+
+/*/{Protheus.doc} aliasDicStruct
+Define estrutura de tabelas de dicionário
+@type function
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+@param cTable, character, param_description
+@return variant, return_description
+/*/
+Static Function aliasDicStruct(cTable)
+    Local aCampos := {}
+    
+    Do Case
+        Case cTable == 'SX2'
+
+            Aadd(aCampos, {'X2_CHAVE','C',3,0})
+            Aadd(aCampos, {'X2_PATH','C',40,0})
+            Aadd(aCampos, {'X2_ARQUIVO','C',8,0})
+            Aadd(aCampos, {'X2_NOME','C',30,0})
+            Aadd(aCampos, {'X2_NOMESPA','C',30,0})
+            Aadd(aCampos, {'X2_NOMEENG','C',30,0})
+            Aadd(aCampos, {'X2_ROTINA','C',40,0})
+            Aadd(aCampos, {'X2_MODO','C',1,0})
+            Aadd(aCampos, {'X2_MODOUN','C',1,0})
+            Aadd(aCampos, {'X2_MODOEMP','C',1,0})
+            Aadd(aCampos, {'X2_DELET','N',1,0})
+            Aadd(aCampos, {'X2_TTS','C',1,0})
+            Aadd(aCampos, {'X2_UNICO','C',250,0})
+            Aadd(aCampos, {'X2_PYME','C',1,0})
+            Aadd(aCampos, {'X2_MODULO','N',2,0})
+            Aadd(aCampos, {'X2_DISPLAY','C',250,0})
+            Aadd(aCampos, {'X2_SYSOBJ','C',30,0})
+            Aadd(aCampos, {'X2_USROBJ','C',30,0})
+            Aadd(aCampos, {'X2_AUTREC','C',1,0})
+            Aadd(aCampos, {'X2_STAMP','C',1,0})
+
+        Case cTable == 'SX3'
+
+            Aadd(aCampos, {'X3_ARQUIVO','C',3,0})
+            Aadd(aCampos, {'X3_ORDEM','C',2,0})
+            Aadd(aCampos, {'X3_CAMPO','C',10,0})
+            Aadd(aCampos, {'X3_TIPO','C',1,0})
+            Aadd(aCampos, {'X3_TAMANHO','N',3,0})
+            Aadd(aCampos, {'X3_DECIMAL','N',1,0})
+            Aadd(aCampos, {'X3_TITULO','C',12,0})
+            Aadd(aCampos, {'X3_TITSPA','C',12,0})
+            Aadd(aCampos, {'X3_TITENG','C',12,0})
+            Aadd(aCampos, {'X3_DESCRIC','C',25,0})
+            Aadd(aCampos, {'X3_DESCSPA','C',25,0})
+            Aadd(aCampos, {'X3_DESCENG','C',25,0})
+            Aadd(aCampos, {'X3_PICTURE','C',45,0})
+            Aadd(aCampos, {'X3_VALID','C',128,0})
+            Aadd(aCampos, {'X3_USADO','C',120,0})
+            Aadd(aCampos, {'X3_RELACAO','C',128,0})
+            Aadd(aCampos, {'X3_F3','C',6,0})
+            Aadd(aCampos, {'X3_NIVEL','C',1,0})
+            Aadd(aCampos, {'X3_RESERV','C',16,0})
+            Aadd(aCampos, {'X3_CHECK','C',1,0})
+            Aadd(aCampos, {'X3_TRIGGER','C',1,0})
+            Aadd(aCampos, {'X3_PROPRI','C',1,0})
+            Aadd(aCampos, {'X3_BROWSE','C',1,0})
+            Aadd(aCampos, {'X3_VISUAL','C',1,0})
+            Aadd(aCampos, {'X3_CONTEXT','C',1,0})
+            Aadd(aCampos, {'X3_OBRIGAT','C',8,0})
+            Aadd(aCampos, {'X3_VLDUSER','C',128,0})
+            Aadd(aCampos, {'X3_CBOX','C',128,0})
+            Aadd(aCampos, {'X3_CBOXSPA','C',128,0})
+            Aadd(aCampos, {'X3_CBOXENG','C',128,0})
+            Aadd(aCampos, {'X3_PICTVAR','C',20,0})
+            Aadd(aCampos, {'X3_WHEN','C',60,0})
+            Aadd(aCampos, {'X3_INIBRW','C',80,0})
+            Aadd(aCampos, {'X3_GRPSXG','C',3,0})
+            Aadd(aCampos, {'X3_FOLDER','C',1,0})
+            Aadd(aCampos, {'X3_PYME','C',1,0})
+            Aadd(aCampos, {'X3_CONDSQL','C',250,0})
+            Aadd(aCampos, {'X3_CHKSQL','C',250,0})
+            Aadd(aCampos, {'X3_IDXSRV','C',1,0})
+            Aadd(aCampos, {'X3_ORTOGRA','C',1,0})
+            Aadd(aCampos, {'X3_IDXFLD','C',1,0})
+            Aadd(aCampos, {'X3_TELA','C',15,0})
+            Aadd(aCampos, {'X3_AGRUP','C',3,0}) 
+
+        Case cTable == 'SIX'
+
+            Aadd(aCampos, {'INDICE','C',3,0})
+            Aadd(aCampos, {'ORDEM','C',1,0})
+            Aadd(aCampos, {'CHAVE','C',160,0})
+            Aadd(aCampos, {'DESCRICAO','C',70,0})
+            Aadd(aCampos, {'DESCSPA','C',70,0})
+            Aadd(aCampos, {'DESCENG','C',70,0})
+            Aadd(aCampos, {'PROPRI','C',1,0})
+            Aadd(aCampos, {'F3','C',160,0})
+            Aadd(aCampos, {'NICKNAME','C',10,0})
+            Aadd(aCampos, {'SHOWPESQ','C',1,0})
+
+        OtherWise
+    EndCase
+Return aCampos

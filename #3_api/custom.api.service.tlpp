@@ -1,0 +1,52 @@
+#include "TOTVS.ch"
+#include "tlpp-core.th"
+
+namespace custom.api
+
+/*/{Protheus.doc} apiService
+Serviço de chamada para captura de dados de uma tabela específica
+@type class
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+/*/
+Class apiService
+    Public Data jResponse as Json
+
+    Public method new() as Object
+    Public method getTable() as Json 
+
+EndClass
+
+/*/{Protheus.doc} new
+Construtor da classe apiService. Inicializa uma nova instância da classe.
+@type method
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+@return object, return_description
+/*/
+Method new() as Object Class apiService
+    ::jResponse := JsonObject():New()
+Return Self
+
+/*/{Protheus.doc} getTable
+Serviço de chamada para captura de dados de uma tabela específica
+@type method
+@version  
+@author gabriel.antonio@totvs.com.br
+@since 11/05/2025
+/*/
+Method getTable(nPage as Numeric, nPageSize as Numeric, cFilter as Character, cFields as Character, cSort as Character, cTable as Character) as Json Class apiService
+    
+    Local oData as Object
+
+    oData := apiData():new("GET")
+    oData:getTable(nPage, nPageSize, cFilter, cFields, cSort, cTable)
+
+    If oData:lOk
+        ::jResponse := oData:gtJsonObjResponse() 
+    Else
+        ::jResponse := SetRestFault(oData:GetCode(), oData:GetMessage())
+    EndIf
+Return ::jResponse
