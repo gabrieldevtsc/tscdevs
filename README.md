@@ -4,10 +4,13 @@ Repositório público para armazenamento de exemplos do projeto TSC DEVS no [YOU
 
 ## LINKS ##
 
+## TSC DEVs #1:
 [#1 ERROR LOGS](https://tdn.totvs.com/pages/viewpage.action?pageId=269435174)
 
+## TSC DEVs #2:
 [#2 GESTÃO DE PROJETOS](https://tdn.totvs.com/pages/releaseview.action?pageId=528471986)
 
+## TSC DEVs #3:
 [#3 TL++](https://tdn.totvs.com/pages/viewpage.action?pageId=334340072)
 
 [#3 MANUAL APIs](https://api.totvs.com.br/guia)
@@ -15,6 +18,28 @@ Repositório público para armazenamento de exemplos do projeto TSC DEVS no [YOU
 [#3 FWADAPTERBASEV2](https://tdn.totvs.com/display/public/framework/09.+FWAdapterBaseV2)
 
 [#3 OREST](https://tdn.totvs.com/pages/viewpage.action?pageId=553336167)
+
+## TSC DEVs #4:
+
+[#4 Bancos Homologados](https://tdn.totvs.com/pages/viewpage.action?pageId=6064703)
+
+[#4 Download POSTGRESQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+
+[#4 Como instalar o Postgres para Protheus?](https://tdn.totvs.com/pages/viewpage.action?pageId=691456470)
+
+[#4 Download ODBC POSTGRESQL](https://ftp.postgresql.org/pub/odbc/releases/REL-16_00_0007/psqlodbc_x64.msi)
+
+[#4 Como instalar o ODBC no Windows?](https://tdn.totvs.com/pages/viewpage.action?pageId=691456506)
+
+[#4 Download License Server](https://suporte.totvs.com/portal/p/10098/download?e=1137545)
+
+[#4 Como instalar o License Server?](https://tdn.totvs.com/display/public/framework/TOTVS+License+Server+Virtual)
+
+[#4 Download Protheus 12.1.2410](https://suporte.totvs.com/portal/p/10098/download?e=1171004)
+
+[#4 Como instalar o Protheus?](https://tdn.totvs.com/display/PROT/Instalador+Protheus+Windows+12.1.2410)
+
+[#4 Como configurar a porta multiprotocolo?](https://tdn.totvs.com/pages/viewpage.action?pageId=548376390)
 
 
 ## Base de conhecimento Protheus: ##
