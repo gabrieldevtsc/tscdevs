@@ -104,7 +104,7 @@ https://tdn.totvs.com/pages/viewpage.action?pageId=6063063
 
 ## Outros Conceitos: ##
 
-### MVC:###
+### MVC: ###
 https://tdn.totvs.com/display/public/PROT/AdvPl+utilizando+MVC
 
 ### Pontos de entrada MVC: ###
@@ -113,6 +113,6 @@ https://tdn.totvs.com/pages/releaseview.action?pageId=208345968
 ### Fontes em MVC: ###
 https://tdn.totvs.com/display/public/PROT/Fontes+em+MVC
 
-### Webservices:###
+### Webservices: ###
 https://tdn.totvs.com/display/tec/totvswebsrv.ch
 
