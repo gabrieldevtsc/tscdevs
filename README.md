@@ -21,13 +21,13 @@ Repositório público para armazenamento de exemplos do projeto TSC DEVS no [YOU
 
 ## TSC DEVs #4:
 
-[#4 Bancos Homologados](https://tdn.totvs.com/pages/viewpage.action?pageId=6064703)
+[#4 Bancos Homologados Protheus](https://tdn.totvs.com/pages/viewpage.action?pageId=6064703)
 
-[#4 Download POSTGRESQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+[#4 Download PostgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 
 [#4 Como instalar o Postgres para Protheus?](https://tdn.totvs.com/pages/viewpage.action?pageId=691456470)
 
-[#4 Download ODBC POSTGRESQL](https://ftp.postgresql.org/pub/odbc/releases/REL-16_00_0007/psqlodbc_x64.msi)
+[#4 Download ODBC PostgreSQL](https://ftp.postgresql.org/pub/odbc/releases/REL-16_00_0007/psqlodbc_x64.msi)
 
 [#4 Como instalar o ODBC no Windows?](https://tdn.totvs.com/pages/viewpage.action?pageId=691456506)
 
