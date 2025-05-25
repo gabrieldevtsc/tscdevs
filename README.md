@@ -3,10 +3,10 @@
 Repositório público para armazenamento de exemplos do projeto TSC DEVS no [YOUTUBE](https://www.youtube.com/@GabrielOliveiraTSC/shorts).
 
 ## VIDEOS ##
-[#1	ERROR LOGS](https://www.youtube.com/shorts/nW7NuMnmfjE)
-[#2	GESTOR DE PROJETOS](https://www.youtube.com/shorts/Xvym04_lMsM)
-[#3	API EM 1 MINUTO](https://www.youtube.com/shorts/KLxPiecUelg)
-[#4	COMO INSTALAR O PROTHEUS?](https://www.youtube.com/shorts/lmH-4poDokI)
+[#1 ERROR LOGS](https://www.youtube.com/shorts/nW7NuMnmfjE)
+[#2 GESTOR DE PROJETOS](https://www.youtube.com/shorts/Xvym04_lMsM)
+[#3 API EM 1 MINUTO](https://www.youtube.com/shorts/KLxPiecUelg)
+[#4 COMO INSTALAR O PROTHEUS?](https://www.youtube.com/shorts/lmH-4poDokI)
 
 ## LINKS ##
 
